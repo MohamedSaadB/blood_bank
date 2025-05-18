@@ -1,0 +1,16 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // السماح للجميع بقراءة وكتابة البيانات في مجموعة المتبرعين
+    match /donors/{donorId} {
+      allow read, write: if true;
+    }
+
+    // السماح للجميع بقراءة وكتابة أي مستندات أخرى (إن وجدت)
+    match /{document=**} {
+      allow read, write: if true;
+    }
+  }
+}
